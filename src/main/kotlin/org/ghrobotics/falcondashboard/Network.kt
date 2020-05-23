@@ -2,14 +2,18 @@ package org.ghrobotics.falcondashboard
 
 import edu.wpi.first.wpilibj.geometry.Pose2d
 import edu.wpi.first.wpilibj.geometry.Rotation2d
+import javafx.beans.property.SimpleObjectProperty
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.ghrobotics.falcondashboard.livevisualizer.charts.FieldChart
+import org.ghrobotics.falcondashboard.logger.charts.RPMChart
 import org.ghrobotics.lib.mathematics.twodim.geometry.Pose2d
 import org.ghrobotics.lib.mathematics.units.meters
+import org.ghrobotics.lib.mathematics.units.seconds
 import org.ghrobotics.lib.wrappers.networktables.FalconNetworkTable
+import kotlin.math.absoluteValue
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -24,6 +28,7 @@ object Network {
         var lastPathPose: Pose2d? = null
         var lastTurretPose: Pose2d? = null
         var lastTurretLock: Boolean? = null
+        var timer = 0.0
 
         GlobalScope.launch {
             while (isActive) {
@@ -49,6 +54,10 @@ object Network {
                     FalconDs.robotY.meters + Properties.kTurretOffsetX* sin(FalconDs.robotHeading),
                     Rotation2d(FalconDs.turretAngle)
                 )
+                if(timer!=FalconDs.matchTime) {
+                    timer = FalconDs.matchTime
+                    RPMChart.update()
+                }
 
                 val isTurretLocked = FalconDs.isTurretLocked
 

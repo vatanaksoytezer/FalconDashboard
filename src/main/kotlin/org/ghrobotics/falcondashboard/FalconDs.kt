@@ -10,6 +10,7 @@ package org.ghrobotics.falcondashboard
 
 import com.google.gson.Gson
 import edu.wpi.first.wpilibj.geometry.Pose2d
+import javafx.beans.property.SimpleObjectProperty
 import org.ghrobotics.lib.mathematics.twodim.geometry.Pose2d
 import org.ghrobotics.lib.mathematics.units.derived.degrees
 import org.ghrobotics.lib.mathematics.units.derived.toRotation2d
@@ -32,6 +33,8 @@ object FalconDs {
     // var b = aEntry.setDouble(2.0)
 
     // TODO: Change default values back to 0
+    var matchTime by falconDashboardTable["matchTime"].delegate(0.0)
+
     var robotX by falconDashboardTable["robotX"].delegate(5.0)
     var robotY by falconDashboardTable["robotY"].delegate(5.0)
     var robotHeading by falconDashboardTable["robotHeading"].delegate(1.0)
@@ -42,6 +45,8 @@ object FalconDs {
     var pathX by falconDashboardTable["pathX"].delegate(0.0)
     var pathY by falconDashboardTable["pathY"].delegate(0.0)
     var pathHeading by falconDashboardTable["pathHeading"].delegate(0.0)
+
+    var RPM by falconDashboardTable["RPM"].delegate(0.0)
 
     private val visionTargetEntry = falconDashboardTable["visionTargets"]
     var visionTargets: List<Pose2d>
