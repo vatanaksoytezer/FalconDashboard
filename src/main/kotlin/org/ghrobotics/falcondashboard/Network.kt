@@ -54,9 +54,12 @@ object Network {
                     FalconDs.robotY.meters + Properties.kTurretOffsetX* sin(FalconDs.robotHeading),
                     Rotation2d(FalconDs.turretAngle)
                 )
+
                 if(timer!=FalconDs.matchTime) {
-                    timer = FalconDs.matchTime
-                    RPMChart.update()
+                    ui {
+                        timer = FalconDs.matchTime
+                        RPMChart.update()
+                    }
                 }
 
                 val isTurretLocked = FalconDs.isTurretLocked
